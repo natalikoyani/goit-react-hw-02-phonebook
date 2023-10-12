@@ -1,6 +1,7 @@
 import { Component } from "react";
-import { Phonebook } from "./Phonebook/Phonebook";
-import { Contacts } from "./Contacts/Contacts";
+import { ContactForm } from "./ContactForm/ContactForm";
+import { ContactList } from "./ContactList/ContactList";
+import { Filter } from "./Filter/Filter";
 import { nanoid } from 'nanoid';
 
 export class App extends Component {
@@ -11,8 +12,6 @@ export class App extends Component {
       {id: 'id-3', name: 'Eden Clements', number: '645-17-79'},
       {id: 'id-4', name: 'Annie Copeland', number: '227-91-26'},
     ],
-    name: '',
-    number: '',
     filter: '',
   }
 
@@ -22,18 +21,27 @@ export class App extends Component {
     }))
   }
 
-  onFilterChange = (evt) => {
+  onFilterChange = evt => {
     this.setState({filter: evt.target.value})
+  }
+
+  deleteContact = (id) => {
+    this.setState(prevState => ({
+      contacts: prevState.contacts.filter(contact => contact.id !== id)
+    }));
   }
 
   render() {
     const { contacts, filter } = this.state;
 
     return (
-      <>
-        <Phonebook onAddContact={this.addContact} />
-        <Contacts items={contacts} filter={filter} onChange={this.onFilterChange} />
-      </>
+      <div>
+        <h1>Phonebook</h1>
+        <ContactForm contacts={contacts} onAddContact={this.addContact} />
+        <h2>Contacts</h2>
+        <Filter onChange={this.onFilterChange} />
+        <ContactList items={contacts} filter={filter} onDelete={this.deleteContact} />
+      </div>
     )
   }
 };

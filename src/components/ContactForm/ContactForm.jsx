@@ -6,15 +6,15 @@ const phonebookSchema = Yup.object().shape({
   number: Yup.number().integer('Must be integer numbers!').required('This field is required!')
 });
 
-export const Phonebook = ({ onAddContact }) => {
+export const ContactForm = ({ contacts, onAddContact }) => {
   return (
-    <div>
-    <h2>Phonebook</h2>
     <Formik
       initialValues={{ name: '', number: '', }}
       validationSchema={phonebookSchema}
       onSubmit={(values, actions) => {
-        onAddContact(values);
+        contacts.some(contact => contact.name === values.name)
+          ? alert(`${values.name} is already in contacts`)
+          : onAddContact(values);
         actions.resetForm();
       }}
     >
@@ -36,6 +36,5 @@ export const Phonebook = ({ onAddContact }) => {
           <button type="submit">Add contact</button>
         </Form>
       </Formik>
-    </div>
   );
 };
