@@ -36,7 +36,7 @@ export class App extends Component {
 
     return (
       <div>
-        <h1>Phonebook</h1>
+        <h2>Phonebook</h2>
         <ContactForm contacts={contacts} onAddContact={this.addContact} />
         <h2>Contacts</h2>
         <Filter onChange={this.onFilterChange} />

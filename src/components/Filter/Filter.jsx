@@ -1,8 +1,10 @@
+import { StyledTitle, StyledFilter } from "./Filter.styled";
+
 export const Filter = ({ onChange }) => {
     return (
         <>
-            <p>Find contacts by name</p>
-            <input type="string" name="filter" onChange={onChange} />
+            <StyledTitle>Find contacts by name</StyledTitle>
+            <StyledFilter type="string" name="filter" onChange={onChange} />
         </>
     )
 }

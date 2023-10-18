@@ -1,9 +1,10 @@
-import { Formik, Form, Field, ErrorMessage } from "formik";
+import { Formik, ErrorMessage } from "formik";
 import * as Yup from 'yup';
+import { StyledForm, StyledLabel, StyledButton, StyledField, StyledErrorMessage } from "./ContactForm.styled";
 
 const phonebookSchema = Yup.object().shape({
   name: Yup.string().required('This field is required!'),
-  number: Yup.number().integer('Must be integer numbers!').required('This field is required!')
+  number: Yup.string().matches(/^[0-9-+]+$/, 'Please enter digits, "-" or "+"').required('This field is required!')
 });
 
 export const ContactForm = ({ contacts, onAddContact }) => {
@@ -18,23 +19,23 @@ export const ContactForm = ({ contacts, onAddContact }) => {
         actions.resetForm();
       }}
     >
-        <Form>
-          <label>
+        <StyledForm>
+          <StyledLabel>
             Name
-            <Field
+            <StyledField
               name="name"
             />
-            <ErrorMessage name="name" />
-          </label>
-          <label>
+            <StyledErrorMessage name="name" component="div" />
+          </StyledLabel>
+          <StyledLabel>
             Number
-            <Field
-               type="number"name="number"
+            <StyledField
+               name="number"
             />
-            <ErrorMessage name="number" />
-          </label>
-          <button type="submit">Add contact</button>
-        </Form>
+            <StyledErrorMessage name="number" component="div" />
+          </StyledLabel>
+          <StyledButton type="submit">Add contact</StyledButton>
+        </StyledForm>
       </Formik>
   );
 };
