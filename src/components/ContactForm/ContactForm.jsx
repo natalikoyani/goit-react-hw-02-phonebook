@@ -7,15 +7,13 @@ const phonebookSchema = Yup.object().shape({
   number: Yup.string().matches(/^[0-9-+]+$/, 'Please enter digits, "-" or "+"').required('This field is required!')
 });
 
-export const ContactForm = ({ contacts, onAddContact }) => {
+export const ContactForm = ({ onAddContact }) => {
   return (
     <Formik
       initialValues={{ name: '', number: '', }}
       validationSchema={phonebookSchema}
       onSubmit={(values, actions) => {
-        contacts.some(contact => contact.name === values.name)
-          ? alert(`${values.name} is already in contacts`)
-          : onAddContact(values);
+        onAddContact(values);
         actions.resetForm();
       }}
     >
